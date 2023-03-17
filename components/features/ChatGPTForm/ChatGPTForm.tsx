@@ -61,8 +61,8 @@ export function ChatGPTForm() {
     if (!response.ok) {
       throw new Error(response.statusText);
     }
-
-    console.log({ text });
+    //
+    // console.log({ text });
 
     const data = response.body;
     if (!data) {

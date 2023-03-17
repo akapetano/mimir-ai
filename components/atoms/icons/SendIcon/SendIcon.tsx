@@ -14,7 +14,7 @@ export const SendIcon = ({ width, height }: ISendIconProps) => {
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
-      stroke-linejoin="round"
+      strokeLinejoin="round"
       className="feather feather-send"
     >
       <line x1="22" y1="2" x2="11" y2="13"></line>
