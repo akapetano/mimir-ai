@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "BenderAI",
-  description: "Chat App with Bender from Futurama",
+  title: "MimirAI",
+  description: "Learning App with MimirAI",
 };
 
 export default function RootLayout({

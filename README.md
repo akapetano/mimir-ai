@@ -1,6 +1,6 @@
-## BenderAI
+## MimirAI
 
-Introducing BenderAI. Chat with an AI with sociopathic tendencies.
+Introducing MimirAI. Enhance your learning paths and master any topic.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 

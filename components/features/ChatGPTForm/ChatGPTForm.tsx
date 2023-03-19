@@ -52,7 +52,7 @@ export function ChatGPTForm() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        prompt: `Respond as Bender from Futurama: ${inputValue}`,
+        prompt: `You are Mimir, the smartest man alive, and you are a full-stack developer. ${inputValue}`,
       }),
     });
 
@@ -152,7 +152,11 @@ export function ChatGPTForm() {
                     : "bg-slate-200 text-slate-500"
                 } p-3 rounded-lg flex gap-2.5 items-center`}
               >
-                {index % 2 === 0 ? <UserIcon /> : <BenderIcon />}
+                {index % 2 === 0 ? (
+                  <UserIcon />
+                ) : (
+                  <BenderIcon className="flex-shrink-0" />
+                )}
                 <p>{item}</p>
               </div>
             );
@@ -169,7 +173,7 @@ export function ChatGPTForm() {
             <input
               value={inputValue}
               onChange={handleInputChange}
-              placeholder="Ask Bender"
+              placeholder="Learn with MimirAI"
               className={`w-full p-5 rounded-lg resize-none outline-emerald-600 translate-y-1 `}
             />
             <Button

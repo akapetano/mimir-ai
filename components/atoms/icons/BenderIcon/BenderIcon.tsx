@@ -1,6 +1,10 @@
-export const BenderIcon = () => {
+interface IBenderIconProps {
+  className: string;
+}
+
+export const BenderIcon = ({ className }: IBenderIconProps) => {
   return (
-    <div className="h-10 w-5">
+    <div className={`h-10 w-5 ${className}`}>
       <svg
         version="1.0"
         xmlns="http://www.w3.org/2000/svg"
