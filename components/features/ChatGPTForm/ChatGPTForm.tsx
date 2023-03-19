@@ -10,9 +10,9 @@ import {
 } from "react";
 import useSwr from "swr";
 import { ModelType } from "@/types";
-import { Button } from "@/components/atoms/Button";
+import { Button } from "@/components/atoms/Button/Button";
 import { UserIcon } from "@/components/atoms/icons/UserIcon/UserIcon";
-import { BenderIcon } from "@/components/atoms/icons/BenderIcon/BenderIcon";
+import { BotIcon } from "@/components/atoms/icons/BotIcon/BotIcon";
 
 export function ChatGPTForm() {
   const [inputValue, setInputValue] = useState<string>("");
@@ -52,7 +52,7 @@ export function ChatGPTForm() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        prompt: `You are Mimir, the smartest man alive, and you are a full-stack developer. ${inputValue}`,
+        prompt: `You are Mimir, the smartest man alive, and you are a full-stack web developer. ${inputValue}`,
       }),
     });
 
@@ -121,17 +121,21 @@ export function ChatGPTForm() {
     <div className="flex flex-col justify-between h-[100vh] w-full mx-5">
       <div className="w-full flex flex-col gap-10">
         <div className="mt-5 flex flex-col md:flex-row justify-between items-start gap-5 mx-2.5">
-          <select
-            value={currentModel}
-            onChange={handleModelChange}
-            className="w-full md:w-72 py-4 border-none rounded-md bg-emerald-200 text-slate-700 outline-emerald-600"
-          >
-            {models.map((model) => (
-              <option key={model.id} value={model.id}>
-                {model.id}
-              </option>
-            ))}
-          </select>
+          <div className="flex flex-col gap-1">
+            <label htmlFor="currentModel">Current Model</label>
+            <select
+              id="currentModel"
+              value={currentModel}
+              onChange={handleModelChange}
+              className="w-full md:w-72 py-2 px-2 border-r-8 border-transparent rounded-md bg-emerald-200 text-slate-700 outline-emerald-600"
+            >
+              {models.map((model) => (
+                <option key={model.id} value={model.id}>
+                  {model.id}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <Button
             label="Clear History"
@@ -155,7 +159,7 @@ export function ChatGPTForm() {
                 {index % 2 === 0 ? (
                   <UserIcon />
                 ) : (
-                  <BenderIcon className="flex-shrink-0" />
+                  <BotIcon className="flex-shrink-0" />
                 )}
                 <p>{item}</p>
               </div>
