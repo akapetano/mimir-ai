@@ -57,16 +57,18 @@ export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
       </div>
 
       <div className="w-full md:max-w-[900px] flex flex-col gap-10 self-center mb-5">
-        <div className="w-full pb-10 pt-5 px-5 shadow-md rounded-lg border bg-slate-200 flex flex-col justify-between">
+        <div className="w-full p-2.5 shadow-md rounded-lg bg-emerald-200 flex flex-col justify-between">
           <form
             onSubmit={handleSubmit}
             className="relative w-full flex flex-col gap-5"
           >
             <input
+              id="question"
+              name="question"
               value={inputValue}
               onChange={handleInputChange}
               placeholder="Learn with MimirAI"
-              className={`w-full p-5 rounded-lg resize-none  outline-emerald-600 translate-y-1 `}
+              className={`w-full p-5 rounded-lg outline-emerald-600`}
             />
             <Button
               label=""
@@ -75,7 +77,7 @@ export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
               type="submit"
               disabled={btnDisabled}
               variant="primary"
-              className="absolute top-4 right-2"
+              className="absolute top-3 right-2"
             />
           </form>
         </div>
