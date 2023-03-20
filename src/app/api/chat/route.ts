@@ -32,7 +32,8 @@ export async function POST(request: Request) {
 
     const json = await response.json();
     return new Response(json.choices[0].message.content);
-  } catch (e) {
+  } catch (error) {
+    console.log({ error });
     return new Response("Request cannot be processed!", {
       status: 400,
     });
