@@ -68,7 +68,7 @@ export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
               value={inputValue}
               onChange={handleInputChange}
               placeholder="Learn with MimirAI"
-              className={`w-full p-5 rounded-lg outline-emerald-600`}
+              className={`w-full p-5 rounded-lg outline-emerald-600 pr-14`}
             />
             <Button
               label=""

@@ -41,28 +41,13 @@ export const useChat = ({ currentModel }: IUseChatProps) => {
     if (!response.ok) {
       throw new Error(response.statusText);
     }
-    //
-    // console.log({ text });
 
     const data = response.body;
     if (!data) {
       return;
     }
 
-    // const reader = data.getReader();
-    // const decoder = new TextDecoder();
-    // let done = false;
-
     setResponse((prev) => [...prev, text]);
-
-    // let currentResponse: string[] = [];
-    // while (!done) {
-    //   const { value, done: doneReading } = await reader.read();
-    //   done = doneReading;
-    //   const chunkValue = decoder.decode(value);
-    //   currentResponse = [...currentResponse, chunkValue];
-    //   setResponse((prev) => [...prev.slice(0, -1), currentResponse.join("")]);
-    // }
 
     setIsLoading(false);
   };

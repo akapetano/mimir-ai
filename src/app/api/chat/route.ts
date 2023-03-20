@@ -9,7 +9,6 @@ if (!OPENAI_API_KEY) {
 export async function POST(request: Request) {
   try {
     const { currentModel, prompt } = await request.json();
-    console.log({ currentModel });
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
