@@ -1,8 +1,8 @@
 "use-client";
 
 import { useModels } from "@/hooks/useModels";
-import { Options } from "@/components/features/home/Options/Options";
-import { ChatGPTForm } from "@/components/features/home/ChatGPTForm/ChatGPTForm";
+import { Options } from "@/components/features/home/Chat/Options/Options";
+import { ChatGPTForm } from "@/components/features/home/Chat/ChatGPTForm/ChatGPTForm";
 
 export const Chat = () => {
   const { currentModel, models, handleModelChange } = useModels();
