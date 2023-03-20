@@ -1,9 +1,15 @@
 import "./globals.css";
+import { Lato } from "next/font/google";
 
 export const metadata = {
   title: "MimirAI",
   description: "Learning App with MimirAI",
 };
+
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 export default function RootLayout({
   children,
@@ -12,7 +18,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <main
+          className={`flex bg-slate-100 dark:bg-slate-800 ${lato.className}`}
+        >
+          {children}
+        </main>
+      </body>
     </html>
   );
 }

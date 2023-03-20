@@ -8,7 +8,8 @@ if (!OPENAI_API_KEY) {
 
 export async function POST(request: Request) {
   try {
-    const { prompt } = await request.json();
+    const { currentModel, prompt } = await request.json();
+    console.log({ currentModel });
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -17,7 +18,7 @@ export async function POST(request: Request) {
         Authorization: `Bearer ${OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",
+        model: currentModel ? currentModel : "gpt-3.5-turbo",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.7,
         top_p: 1,

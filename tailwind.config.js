@@ -8,6 +8,7 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: { gold: "#FFD700" },
       keyframes: {
         leftToRight: {
           from: { transform: "translate(0)" },
