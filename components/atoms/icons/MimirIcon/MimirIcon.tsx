@@ -4,7 +4,7 @@ interface IMimirIconProps {
 
 export const MimirIcon = ({ className }: IMimirIconProps) => {
   return (
-    <div className={`w-16 ${className}`}>
+    <div className={`w-40 ${className}`}>
       <svg
         id="mimir-ai"
         data-name="mimir-ai"

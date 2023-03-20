@@ -42,9 +42,13 @@ export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
                   index % 2 === 0
                     ? "bg-orange-600 text-white"
                     : "bg-slate-200 text-slate-500"
-                } p-3 rounded-lg flex gap-2.5 items-center`}
+                } p-3 rounded-lg justify-center flex gap-2.5 items-center`}
               >
-                {index % 2 === 0 ? <UserIcon /> : <MimirIcon />}
+                {index % 2 === 0 ? (
+                  <UserIcon width="30" height="30" />
+                ) : (
+                  <MimirIcon className="self-start" />
+                )}
                 <p>{item}</p>
               </div>
             );
