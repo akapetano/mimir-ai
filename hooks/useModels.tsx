@@ -9,18 +9,16 @@ export const useModels = () => {
     const modelIndex = models.data.findIndex(
       (model: ModelType) => model.id === "gpt-3.5-turbo"
     );
-    setCurrentModel(models.data[modelIndex].id);
+    setCurrentModelId(models.data[modelIndex].id);
     return models;
   };
 
-  useSwr("fetchingModels", modelFetcher);
+  const { data } = useSwr("fetchingModels", modelFetcher);
 
-  const [currentModel, setCurrentModel] = useState<string>("gpt-3.5-turbo");
+  console.log(data);
+
+  const [currentModelId, setCurrentModelId] = useState<string>("gpt-3.5-turbo");
   const [models, setModels] = useState<ModelType[]>([]);
 
-  const handleModelChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setCurrentModel(event.target.value);
-  };
-
-  return { currentModel, models, handleModelChange };
+  return { currentModelId, setCurrentModelId, models };
 };

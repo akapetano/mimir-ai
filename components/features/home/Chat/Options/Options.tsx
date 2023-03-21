@@ -1,35 +1,29 @@
-"use client";
-
+import { Select } from "@/components/atoms/Select/Select";
 import { ModelType } from "@/types";
-import { ChangeEvent } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 interface IOptionsProps {
-  currentModel: string;
-  handleModelChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  currentModelId: string;
+  setCurrentModelId: Dispatch<SetStateAction<string>>;
   models: ModelType[];
 }
 
 export const Options = ({
-  currentModel,
-  handleModelChange,
+  currentModelId,
+  setCurrentModelId,
   models,
 }: IOptionsProps) => {
   return (
     <div className="hidden flex-col gap-1 p-2.5 md:flex">
-      <label htmlFor="currentModel">Current Model</label>
-      <select
-        id="currentModel"
+      <Select
+        label="Current Model"
         name="currentModel"
-        value={currentModel}
-        onChange={handleModelChange}
-        className="w-full md:w-72 py-2 px-2 border-r-8 border-transparent rounded-md bg-emerald-200 text-slate-700 outline-emerald-600"
-      >
-        {models.map((model) => (
-          <option key={model.id} value={model.id}>
-            {model.id}
-          </option>
-        ))}
-      </select>
+        value={currentModelId}
+        onChange={setCurrentModelId}
+        options={models}
+        mapOptionToLabel={(model: ModelType) => model.id}
+        mapOptionToValue={(model: ModelType) => model.id}
+      />
     </div>
   );
 };

@@ -2,10 +2,10 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import useSwr from "swr";
 
 interface IUseChatProps {
-  currentModel: string;
+  currentModelId: string;
 }
 
-export const useChat = ({ currentModel }: IUseChatProps) => {
+export const useChat = ({ currentModelId }: IUseChatProps) => {
   const [inputValue, setInputValue] = useState<string>("");
   const [response, setResponse] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -32,7 +32,7 @@ export const useChat = ({ currentModel }: IUseChatProps) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         prompt: `You are a professional full-stack web developer with 20 years of experience. ${inputValue}`,
-        currentModel,
+        currentModelId,
       }),
     });
 

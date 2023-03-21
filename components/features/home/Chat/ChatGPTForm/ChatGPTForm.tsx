@@ -7,10 +7,10 @@ import { MimirIcon } from "@/components/atoms/icons/MimirIcon/MimirIcon";
 import { useChat } from "@/hooks/useChat";
 
 interface IChatGPTFormProps {
-  currentModel: string;
+  currentModelId: string;
 }
 
-export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
+export function ChatGPTForm({ currentModelId }: IChatGPTFormProps) {
   const {
     inputValue,
     handleReset,
@@ -19,7 +19,7 @@ export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
     isLoading,
     handleInputChange,
     response,
-  } = useChat({ currentModel });
+  } = useChat({ currentModelId });
 
   return (
     <div className="flex flex-col justify-between h-[100vh] w-full p-5">
@@ -40,16 +40,16 @@ export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
                 key={index}
                 className={`${
                   index % 2 === 0
-                    ? "bg-orange-600 text-white"
+                    ? "bg-orange-600 text-white gap-2.5"
                     : "bg-slate-200 text-slate-500"
-                } p-3 rounded-lg justify-center flex gap-2.5 items-center`}
+                } p-3 rounded-lg justify-start flex items-center`}
               >
                 {index % 2 === 0 ? (
                   <UserIcon width="30" height="30" />
                 ) : (
-                  <MimirIcon className="self-start" />
+                  <MimirIcon className="self-start -ml-4 flex-1/12 flex-shrink-0" />
                 )}
-                <p>{item}</p>
+                <p className="flex-11/12">{item}</p>
               </div>
             );
           })}
