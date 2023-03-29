@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
 
-type Allowed = string | number;
+type OptionValue = string | number;
 
 type SelectBaseProps<Value> = {
   label: string;
@@ -8,15 +8,15 @@ type SelectBaseProps<Value> = {
   name: string;
   onChange: (newValue: Value) => void;
   options: readonly Value[];
-  mapOptionToLabel?: (option: Value) => Allowed;
-  mapOptionToValue?: (option: Value) => Allowed;
+  mapOptionToLabel?: (option: Value) => OptionValue;
+  mapOptionToValue?: (option: Value) => OptionValue;
 };
 
-type SelectProps<Value> = Value extends Allowed
+type SelectProps<Value> = Value extends OptionValue
   ? SelectBaseProps<Value>
   : Required<SelectBaseProps<Value>>;
 
-const isAllowed = (v: unknown): v is Allowed =>
+const isAllowed = (v: unknown): v is OptionValue =>
   typeof v === "string" || typeof v === "number";
 
 export function Select<Value>({
@@ -30,14 +30,14 @@ export function Select<Value>({
 }: SelectProps<Value>) {
   console.log({ value });
 
-  const toLabel = (option: Value): Allowed => {
+  const toLabel = (option: Value): OptionValue => {
     if (mapOptionToLabel) {
       return mapOptionToLabel(option);
     }
     return isAllowed(option) ? option : String(option);
   };
 
-  const toValue = (option: Value): Allowed => {
+  const toValue = (option: Value): OptionValue => {
     if (mapOptionToValue) {
       return mapOptionToValue(option);
     }
@@ -54,11 +54,11 @@ export function Select<Value>({
       <select
         id={name}
         name={name}
-        className="w-full md:w-72 py-2 px-2 border-r-8 border-transparent rounded-md bg-emerald-200 text-slate-700 outline-emerald-600"
+        className="w-full md:w-72 py-2 px-2 border-r-8 border-transparent rounded-md bg-emerald-50 text-slate-700 outline-offset-2 outline-emerald-600"
         value={toValue(value)}
         onChange={handleChange}
       >
-        {options.map((value) => (
+        {options?.map((value) => (
           <option value={toValue(value)} key={toValue(value)}>
             {toLabel(value)}
           </option>

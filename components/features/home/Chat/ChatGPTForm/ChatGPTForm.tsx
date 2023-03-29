@@ -5,12 +5,14 @@ import { UserIcon } from "@/components/atoms/icons/UserIcon/UserIcon";
 import { SendIcon } from "@/components/atoms/icons/SendIcon/SendIcon";
 import { MimirIcon } from "@/components/atoms/icons/MimirIcon/MimirIcon";
 import { useChat } from "@/hooks/useChat";
+import { LoadingChatLine } from "../ChatLine/LoadingChatLine/LoadingChatLine";
+import { ChatLine } from "../ChatLine/ChatLine";
 
 interface IChatGPTFormProps {
-  currentModelId: string;
+  currentModel: string;
 }
 
-export function ChatGPTForm({ currentModelId }: IChatGPTFormProps) {
+export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
   const {
     inputValue,
     handleReset,
@@ -18,11 +20,11 @@ export function ChatGPTForm({ currentModelId }: IChatGPTFormProps) {
     handleSubmit,
     isLoading,
     handleInputChange,
-    response,
-  } = useChat({ currentModelId });
+    messages,
+  } = useChat({ currentModel });
 
   return (
-    <div className="flex flex-col justify-between h-[100vh] w-full p-5">
+    <div className="flex flex-col justify-between h-[100dvh] w-full p-5">
       <div className="w-full flex flex-col gap-10">
         <div className="mt-5 flex flex-col md:flex-row justify-end gap-5">
           <Button
@@ -33,26 +35,13 @@ export function ChatGPTForm({ currentModelId }: IChatGPTFormProps) {
             className="outline-emerald-600 w-full md:w-auto"
           />
         </div>
-        <div className="self-center w-full md:max-w-[900px] mx-2 flex flex-col md:items-start gap-3 order-last md:order-none">
-          {response.map((item: string, index: number) => {
-            return (
-              <div
-                key={index}
-                className={`${
-                  index % 2 === 0
-                    ? "bg-orange-600 text-white gap-2.5"
-                    : "bg-slate-200 text-slate-500"
-                } p-3 rounded-lg justify-start flex items-center`}
-              >
-                {index % 2 === 0 ? (
-                  <UserIcon width="30" height="30" />
-                ) : (
-                  <MimirIcon className="self-start -ml-4 flex-1/12 flex-shrink-0" />
-                )}
-                <p className="flex-11/12">{item}</p>
-              </div>
-            );
-          })}
+
+        <div>
+          {messages?.map(({ content, role }, index) => (
+            <ChatLine key={index} role={role} content={content} />
+          ))}
+
+          {isLoading && <LoadingChatLine />}
         </div>
       </div>
 

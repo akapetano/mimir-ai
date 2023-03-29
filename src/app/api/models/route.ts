@@ -8,6 +8,10 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export async function GET(req: Request) {
-  const response = await openai.listModels();
-  return new Response(JSON.stringify(response.data));
+  try {
+    const response = await openai.listModels();
+    return new Response(JSON.stringify(response.data));
+  } catch (error) {
+    console.error(error);
+  }
 }
