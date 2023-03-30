@@ -1,14 +1,36 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import useSwr from "swr";
+import { ChatGPTMessage } from "@/types";
+import { useCookies } from "react-cookie";
 
 interface IUseChatProps {
   currentModel: string;
 }
 
+const COOKIE_NAME = "nextjs-example-ai-chat-gpt3";
+
+export const initialMessages: ChatGPTMessage[] = [
+  {
+    role: "assistant",
+    content:
+      "Hi! I am a friendly AI assistant and a professional full-stack web developer. Ask me anything!",
+  },
+];
+
 export const useChat = ({ currentModel }: IUseChatProps) => {
   const [inputValue, setInputValue] = useState<string>("");
+  const [messages, setMessages] = useState<ChatGPTMessage[]>(initialMessages);
   const [response, setResponse] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [cookie, setCookie] = useCookies([COOKIE_NAME]);
+
+  useEffect(() => {
+    if (!cookie[COOKIE_NAME]) {
+      // generate a semi random short id
+      const randomId = Math.random().toString(36).substring(7);
+      setCookie(COOKIE_NAME, randomId);
+    }
+  }, [cookie, setCookie]);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const eventTarget = event.target;
@@ -17,59 +39,67 @@ export const useChat = ({ currentModel }: IUseChatProps) => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsLoading(true);
-    if (inputValue !== undefined) {
-      setResponse((prevValue) => [...prevValue, inputValue]);
-      setInputValue("");
-    }
 
-    if (!inputValue) {
-      return;
-    }
+    setIsLoading(true);
+
+    const newMessages = [
+      ...messages,
+      { role: "user", content: inputValue } as ChatGPTMessage,
+    ];
+    setMessages(newMessages);
+    const lastTenMessages = newMessages.slice(-10);
 
     const response = await fetch("/api/chat", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
-        prompt: `You are a professional full-stack web developer with 20 years of experience. ${inputValue}`,
-        currentModel,
+        messages: lastTenMessages,
+        user: cookie[COOKIE_NAME],
       }),
     });
-
-    const text = await response.text();
 
     if (!response.ok) {
       throw new Error(response.statusText);
     }
-    //
-    // console.log({ text });
 
     const data = response.body;
+    setInputValue("");
     if (!data) {
       return;
     }
 
-    // const reader = data.getReader();
-    // const decoder = new TextDecoder();
-    // let done = false;
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
 
-    setResponse((prev) => [...prev, text]);
+    let lastMessage = "";
 
-    // let currentResponse: string[] = [];
-    // while (!done) {
-    //   const { value, done: doneReading } = await reader.read();
-    //   done = doneReading;
-    //   const chunkValue = decoder.decode(value);
-    //   currentResponse = [...currentResponse, chunkValue];
-    //   setResponse((prev) => [...prev.slice(0, -1), currentResponse.join("")]);
-    // }
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
 
-    setIsLoading(false);
+      lastMessage = lastMessage + chunkValue;
+
+      setMessages([
+        ...newMessages,
+        { role: "assistant", content: lastMessage } as ChatGPTMessage,
+      ]);
+
+      setIsLoading(false);
+    }
   };
 
   const handleReset = () => {
     localStorage.removeItem("response");
-    setResponse([]);
+    setMessages([
+      {
+        role: "assistant",
+        content: "",
+      },
+    ]);
   };
 
   useSwr("fetchingResponse", async () => {
@@ -89,5 +119,6 @@ export const useChat = ({ currentModel }: IUseChatProps) => {
     isLoading,
     handleInputChange,
     response,
+    messages,
   };
 };

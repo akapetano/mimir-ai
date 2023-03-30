@@ -1,4 +1,4 @@
-export type ChatGPTAgent = "user" | "system";
+export type ChatGPTAgent = "user" | "system" | "assistant";
 
 export interface ChatGPTMessage {
   role: ChatGPTAgent;
@@ -14,6 +14,8 @@ export interface OpenAIStreamPayload {
   presence_penalty: number;
   max_tokens: number;
   stream: boolean;
+  stop?: string[];
+  user?: ChatGPTAgent;
   n: number;
 }
 

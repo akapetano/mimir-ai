@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Lato } from "next/font/google";
+import { MimirIcon } from "@/components/atoms/icons/MimirIcon/MimirIcon";
 
 export const metadata = {
   title: "MimirAI",
@@ -17,10 +18,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className="h-full">
+      <body className="h-full">
         <main
-          className={`flex bg-slate-100 dark:bg-slate-800 ${lato.className}`}
+          className={`h-full flex bg-slate-200 dark:bg-slate-800 ${lato.className}`}
         >
           {children}
         </main>

@@ -2,6 +2,8 @@
 
 Introducing MimirAI. Enhance your learning paths and master any topic.
 
+[Full-stack template for building fast GPT-3 apps](https://vercel.com/blog/gpt-3-app-next-js-vercel-edge-functions#the-frontend).
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

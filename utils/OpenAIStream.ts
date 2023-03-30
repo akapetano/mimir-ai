@@ -3,8 +3,8 @@ import {
   ParsedEvent,
   ReconnectInterval,
 } from "eventsource-parser";
-import { OpenAIStreamPayload } from "../types";
-import { OPENAI_API_KEY } from "@/constants";
+import { OpenAIStreamPayload } from "@/types";
+import { OPENAI_API_KEY, OPENAI_API_ORG } from "@/constants";
 
 export async function OpenAIStream(payload: OpenAIStreamPayload) {
   const encoder = new TextEncoder();
@@ -12,13 +12,19 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
 
   let counter = 0;
 
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${OPENAI_API_KEY ?? ""}`,
-      method: "POST",
-      body: JSON.stringify(payload),
-    },
+  const requestHeaders: Record<string, string> = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${OPENAI_API_KEY ?? ""}`,
+  };
+
+  if (OPENAI_API_ORG) {
+    requestHeaders["OpenAI-Organization"] = OPENAI_API_ORG;
+  }
+
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    headers: requestHeaders,
+    method: "POST",
+    body: JSON.stringify(payload),
   });
 
   const stream = new ReadableStream({
@@ -38,6 +44,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
             }
             const queue = encoder.encode(text);
             controller.enqueue(queue);
+            counter++;
           } catch (error) {
             controller.error(error);
           }
@@ -45,7 +52,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
       }
 
       const parser = createParser(onParse);
-      for await (const chunk of res.body as any) {
+      for await (const chunk of response.body as any) {
         parser.feed(decoder.decode(chunk));
       }
     },
