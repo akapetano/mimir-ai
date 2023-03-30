@@ -3,7 +3,7 @@ import {
   ParsedEvent,
   ReconnectInterval,
 } from "eventsource-parser";
-import { OpenAIStreamPayload } from "../types";
+import { OpenAIStreamPayload } from "@/types";
 import { OPENAI_API_KEY, OPENAI_API_ORG } from "@/constants";
 
 export async function OpenAIStream(payload: OpenAIStreamPayload) {

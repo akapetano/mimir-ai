@@ -10,7 +10,8 @@ export const useModels = () => {
   const [modelOptions, setModelOptions] = useState<string[]>([]);
 
   // const modelFetcher = async () => {
-  //   const models = await (await fetch("/api/models")).json();
+  //   const models = await fetch("/api/models");
+  //   console.log({ models });
   //   if (models?.data) {
   //     setModels(models.data);
   //   } else {

@@ -1,5 +1,5 @@
-import { ChatGPTMessage, OpenAIStreamPayload, RequestData } from "../../types";
-import { OpenAIStream } from "../../utils/OpenAIStream";
+import { ChatGPTMessage, OpenAIStreamPayload } from "@/types";
+import { OpenAIStream } from "@/utils/OpenAIStream";
 import { OPENAI_API_KEY, AI_MAX_TOKENS, AI_TEMP } from "@/constants";
 
 if (!OPENAI_API_KEY) {

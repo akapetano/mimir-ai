@@ -1,9 +1,7 @@
 "use client";
 
 import { Button } from "@/components/atoms/Button/Button";
-import { UserIcon } from "@/components/atoms/icons/UserIcon/UserIcon";
 import { SendIcon } from "@/components/atoms/icons/SendIcon/SendIcon";
-import { MimirIcon } from "@/components/atoms/icons/MimirIcon/MimirIcon";
 import { useChat } from "@/hooks/useChat";
 import { LoadingChatLine } from "../ChatLine/LoadingChatLine/LoadingChatLine";
 import { ChatLine } from "../ChatLine/ChatLine";
@@ -24,8 +22,8 @@ export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
   } = useChat({ currentModel });
 
   return (
-    <div className="flex flex-col justify-between h-[100dvh] w-full p-5">
-      <div className="w-full flex flex-col gap-10">
+    <div className="flex flex-col justify-between h-full w-full p-5 gap-20">
+      <div className="w-full self-center md:max-w-[900px] flex flex-col gap-10">
         <div className="mt-5 flex flex-col md:flex-row justify-end gap-5">
           <Button
             label="Clear History"
@@ -36,7 +34,7 @@ export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
           />
         </div>
 
-        <div>
+        <div className="flex flex-col">
           {messages?.map(({ content, role }, index) => (
             <ChatLine key={index} role={role} content={content} />
           ))}
@@ -52,6 +50,7 @@ export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
             className="relative w-full flex flex-col gap-5"
           >
             <input
+              type="text"
               id="question"
               name="question"
               value={inputValue}

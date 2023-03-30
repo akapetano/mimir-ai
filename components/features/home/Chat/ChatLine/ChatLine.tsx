@@ -14,33 +14,29 @@ export function ChatLine({ role = "assistant", content }: ChatGPTMessage) {
   const isAI = role === "assistant";
 
   return (
-    <div className={!isAI ? "float-right clear-both" : "float-left clear-both"}>
-      <BalancerWrapper>
-        <div
-          className={clsx(
-            "float-right mb-5 rounded-lg px-2 py-4 shadow-lg",
-            isAI ? "bg-slate-200" : "bg-orange-600"
-          )}
-        >
-          <div className="flex">
-            <div className="flex gap-2.5 justify-between items-center flex-1">
-              <p className="font-large text-xxl text-slate-900">
-                <a href="#" className="hover:underline text-slate-50">
-                  {role === "assistant" ? <MimirIcon /> : <UserIcon />}
-                </a>
-              </p>
-              <p
-                className={clsx(
-                  "text ",
-                  isAI ? "text-slate-900" : "text-slate-50"
-                )}
-              >
-                {formattedMessage}
-              </p>
-            </div>
+    <div className={!isAI ? "self-end" : "self-start"}>
+      <div
+        className={clsx(
+          "self-start mb-5 rounded-lg px-2 py-4 shadow-lg",
+          isAI ? "bg-emerald-50" : "bg-orange-600"
+        )}
+      >
+        <div className="flex">
+          <div className="flex gap-2.5 justify-between items-center flex-1">
+            <span className="text-slate-50 self-start">
+              {role === "assistant" ? <MimirIcon /> : <UserIcon />}
+            </span>
+            <p
+              className={clsx(
+                "text ",
+                isAI ? "text-slate-900" : "text-slate-50"
+              )}
+            >
+              <BalancerWrapper>{formattedMessage}</BalancerWrapper>
+            </p>
           </div>
         </div>
-      </BalancerWrapper>
+      </div>
     </div>
   );
 }
