@@ -22,7 +22,7 @@ export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
   } = useChat({ currentModel });
 
   return (
-    <div className="flex flex-col justify-between h-full w-full p-5 gap-20">
+    <div className="flex flex-col justify-between w-full p-5 gap-20">
       <div className="w-full self-center md:max-w-[900px] flex flex-col gap-10">
         <div className="mt-5 flex flex-col md:flex-row justify-end gap-5">
           <Button
@@ -34,7 +34,7 @@ export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
           />
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex flex-col mb-40">
           {messages?.map(({ content, role }, index) => (
             <ChatLine key={index} role={role} content={content} />
           ))}
@@ -43,7 +43,7 @@ export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
         </div>
       </div>
 
-      <div className="w-full md:max-w-[900px] flex flex-col gap-10 self-center mb-5">
+      <div className="fixed bottom-1 w-full md:max-w-[900px] flex flex-col gap-10 self-center mb-5">
         <div className="w-full p-2.5 shadow-md rounded-lg bg-emerald-200 flex flex-col justify-between">
           <form
             onSubmit={handleSubmit}
