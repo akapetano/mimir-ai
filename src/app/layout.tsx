@@ -19,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main className={`bg-slate-100 dark:bg-slate-800 ${lato.className}`}>
+        <main
+          className={`min-h-full bg-slate-100 dark:bg-slate-800 ${lato.className}`}
+        >
           {children}
         </main>
       </body>
