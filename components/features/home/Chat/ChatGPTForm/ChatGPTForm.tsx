@@ -88,7 +88,7 @@ export function ChatGPTForm({ currentModel, voiceControl }: IChatGPTFormProps) {
         </div>
       </div>
 
-      <div className="fixed bottom-1 w-full md:max-w-[900px] flex flex-col gap-10 self-center mb-5">
+      <div className="fixed bottom-1 w-full max-w-[300px] sm:max-w-[600px]  md:max-w-[900px] flex flex-col gap-10 self-center mb-5">
         <div className="w-full p-2.5 shadow-md rounded-lg bg-emerald-200 flex flex-col justify-between">
           <form
             onSubmit={handleSubmit}
