@@ -18,7 +18,7 @@ export function ChatLine({ role = "assistant", content }: ChatGPTMessage) {
       <div
         className={clsx(
           "self-start mb-5 rounded-lg px-2 py-4 shadow-md",
-          isAI ? "bg-emerald-50" : "bg-orange-600"
+          isAI ? "bg-emerald-50" : "bg-orange-50"
         )}
       >
         <div className="flex w-full">
@@ -31,12 +31,7 @@ export function ChatLine({ role = "assistant", content }: ChatGPTMessage) {
             <span className="text-slate-50 self-start">
               {isAI ? <MimirIcon /> : <UserIcon />}
             </span>
-            <p
-              className={clsx(
-                "",
-                isAI ? "text-slate-900 pr-2.5" : "text-slate-50 pl-2.5"
-              )}
-            >
+            <p className={clsx("text-slate-900", isAI ? " pr-2.5" : "pl-2.5")}>
               <BalancerWrapper>{formattedMessage}</BalancerWrapper>
             </p>
           </div>
