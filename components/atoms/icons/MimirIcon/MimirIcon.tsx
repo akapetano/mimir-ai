@@ -10,7 +10,7 @@ export const MimirIcon = ({ className }: IMimirIconProps) => {
         data-name="Layer 2"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 400 400"
-        className={`min-w-[60px] max-w-[60px] ${className} bg-white rounded-full border-2 border-emerald-700`}
+        className={`min-w-[60px] max-w-[60px] ${className} bg-white rounded-full border-2 border-black`}
       >
         <title>MimirAI</title>
         <path
@@ -54,7 +54,7 @@ export const MimirIcon = ({ className }: IMimirIconProps) => {
           d="M282,137c.43,5.92,.25,16.71,0,20-.54,7.23-1.73,11.75-2,21-.07,2.34-.06,4.25,0,6,.15,4.55,.6,8.32,1,11"
         />
         <path
-          className="cls-4"
+          className="cls-4 fill-gold"
           d="M185,171c.18-6.04-9.27-11.29-17-12-9.6-.88-20.85,4.88-21,11-.15,6.21,11.14,12.61,21,12,7.42-.46,16.83-5.06,17-11Z"
         />
         <path
@@ -71,10 +71,6 @@ export const MimirIcon = ({ className }: IMimirIconProps) => {
         .cls-2,
         .cls-3 {
           fill: none;
-        }
-
-        .cls-4 {
-          fill: gold;
         }
 
         .cls-4,

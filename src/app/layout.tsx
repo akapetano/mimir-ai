@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Lato } from "next/font/google";
+import { Header } from "@/components/shared/Header/Header";
 
 export const metadata = {
   title: "MimirAI",
@@ -18,12 +19,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <main
-          className={`min-h-full bg-slate-100 dark:bg-slate-800 ${lato.className}`}
-        >
-          {children}
-        </main>
+      <body className={`min-h-full bg-black ${lato.className}`}>
+        <main>{children}</main>
       </body>
     </html>
   );
