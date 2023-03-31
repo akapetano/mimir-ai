@@ -25,11 +25,11 @@ export const Checkbox = ({
   onChange,
 }: ICheckboxProps) => {
   const classes = classNames(
-    "flex justify-start gap-2.5 items-center text-sm tracking-normal normal-case p-4 hover:cursor-pointer",
+    "flex justify-start gap-2.5 items-center text-sm tracking-normal normal-case hover:cursor-pointer",
     disabled ? "opacity-50" : "opacity-100",
     bare
       ? "border-none pl-0 mb-1"
-      : "bg-emerald-50 border-2 border-emerald-700 rounded-lg focus:border-slate-900 mb-4",
+      : "bg-gray-dark rounded-md focus:border-blue mb-4 p-4",
     className
   );
 
@@ -41,12 +41,14 @@ export const Checkbox = ({
         type="checkbox"
         checked={checked}
         disabled={disabled}
-        className="h-5 w-5 rounded bg-white text-blue checked:ring-0 focus:ring-1 focus:ring-emerald-800 focus:ring-offset-0 hover:cursor-pointer invalid:text-red-500"
+        className="h-5 w-5 rounded-md bg-white text-blue checked:ring-0 focus:ring-1 focus:ring-blue focus:ring-offset-0 hover:cursor-pointer invalid:text-red-500"
         onChange={onChange}
         required={required}
       />
       <div className="flex flex-col items-start justify-start ">
-        <span className="text-black">{label}</span>
+        <span className="flex flex-nowrap whitespace-nowrap text-gray-light">
+          {label}
+        </span>
         {hint && <span className="mt-1 text-xs text-red">{hint}</span>}
       </div>
     </label>

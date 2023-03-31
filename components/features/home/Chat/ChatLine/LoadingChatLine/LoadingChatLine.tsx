@@ -2,7 +2,7 @@ import { MimirIcon } from "@/components/atoms/icons/MimirIcon/MimirIcon";
 import { Skeleton } from "@/components/atoms/Skeleton/Skeleton";
 
 export const LoadingChatLine = () => (
-  <div className="flex min-w-full animate-pulse px-2.5 py-5  bg-emerald-50 rounded-lg shadow-lg">
+  <div className="flex min-w-full animate-pulse px-2.5 py-5  bg-gray-dark rounded-md shadow-lg">
     <div className="flex flex-grow w-full">
       <div className="min-w-0 flex-1 flex justify-between items-center gap-5">
         <MimirIcon className="self-start" />

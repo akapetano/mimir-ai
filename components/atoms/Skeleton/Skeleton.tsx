@@ -8,7 +8,7 @@ interface ISkeletonProps {
 
 export const Skeleton = ({ type, size, className }: ISkeletonProps) => {
   const classes = classNames(`bg-slate-200 overflow-hidden ${className}`, {
-    "h-20 w-full rounded-lg": type === "card",
+    "h-20 w-full rounded-md": type === "card",
     "h-16 w-16 rounded-full": type === "circle",
     "h-24": type === "card" && size === "large",
     "h-20 w-20": type === "circle" && size === "large",

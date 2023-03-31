@@ -54,7 +54,7 @@ export function Select<Value>({
       <select
         id={name}
         name={name}
-        className="w-full md:w-72 py-2 px-2 border-r-8 border-transparent rounded-md bg-emerald-50 text-slate-700 outline-offset-2 outline-emerald-600"
+        className="w-full md:w-72 py-2 px-2 border-r-8 border-transparent rounded-md bg-white text-gray-dark outline-offset-2 outline-blue"
         value={toValue(value)}
         onChange={handleChange}
       >

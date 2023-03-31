@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-export const useSpeechSynthesisAi = () => {
+export const useSpeechSynthesisApi = () => {
   const [text, setText] = useState<string>("");
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
   const [isPaused, setIsPaused] = useState<boolean>(false);

@@ -19,7 +19,7 @@ export const UserIcon = ({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className={`h-full w-full feather feather-user bg-white text-orange-600 rounded-full border-2 border-orange-600 p-1 ${className}`}
+        className={`h-full w-full feather feather-user bg-white text-gray-dark rounded-full border-2 border-gray-dark p-1 ${className}`}
       >
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
         <circle cx="12" cy="7" r="4"></circle>

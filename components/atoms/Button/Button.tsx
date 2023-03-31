@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 interface IButtonProps {
   label: string;
-  variant: "primary" | "secondary" | "accent" | "ghost";
+  variant: "primary" | "secondary" | "accent" | "ghost" | "colorless";
   disabled?: boolean;
   iconOnly?: boolean;
   icon?: ReactNode;
@@ -22,12 +22,14 @@ export const Button = ({
   onClick,
   className,
 }: IButtonProps) => {
-  const classes = classNames(`p-3 rounded-lg ${className}`, {
+  const classes = classNames(`p-3 rounded-md ${className}`, {
     "cursor-not-allowed": disabled === true,
-    "bg-emerald-700 hover:bg-emerald-600 text-white": variant === "primary",
-    "bg-transparent border-2 border-emerald-700 text-emerald-700 hover:bg-emerald-700 hover:text-white":
+    "bg-blue hover:bg-blue-light text-black": variant === "primary",
+    "bg-white hover:bg-gray-light text-black": variant === "secondary",
+    "bg-transparent border-2 border-blue text-blue hover:bg-blue-light hover:border-blue-light hover:text-black":
       variant === "ghost",
     "bg-red-600 text-white hover:bg-red-700": variant === "accent",
+    "bg-transparent text-white hover:text-gray-light": variant === "colorless",
   });
 
   return (

@@ -1,25 +1,52 @@
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { Checkbox } from "@/components/atoms/Checkbox/Checkbox";
 import { Select } from "@/components/atoms/Select/Select";
-import { ModelType } from "@/types";
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { Button } from "@/components/atoms/Button/Button";
+import { TrashIcon } from "@/components/atoms/icons/TrashIcon/TrashIcon";
+import { VoiceControl } from "../VoiceControl/VoiceControl";
+import { IVoiceControlProps } from "../VoiceControl/VoiceControl";
 
-interface IOptionsProps {
+interface IOptionsProps extends IVoiceControlProps {
   currentModel: string;
   setCurrentModel: Dispatch<SetStateAction<string>>;
   modelOptions: string[];
-  voiceControl: boolean;
-  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleReset: () => void;
+  className?: string;
 }
 
 export const Options = ({
   currentModel,
   setCurrentModel,
   modelOptions,
+  handleReset,
+  className,
   voiceControl,
   handleChange,
+  text,
+  setText,
+  isSpeaking,
+  isResumed,
+  isPaused,
+  hasEnded,
+  speak,
+  pause,
+  resume,
+  cancel,
 }: IOptionsProps) => {
   return (
-    <div className="min-h-full hidden flex-col gap-2.5 p-2.5 md:flex">
+    <div className={`w-full min-h-full flex flex-col gap-2.5 ${className}`}>
+      <div className="w-full flex justify-between items-center">
+        <span className="block text-lg">History</span>
+        <Button
+          label=""
+          iconOnly
+          icon={<TrashIcon />}
+          type="reset"
+          variant="colorless"
+          onClick={handleReset}
+          className="outline-blue w-auto"
+        />
+      </div>
       {modelOptions && modelOptions?.length ? (
         <Select
           label="Current Model"
@@ -31,11 +58,19 @@ export const Options = ({
           mapOptionToValue={(model: string) => model}
         />
       ) : null}
-      <Checkbox
-        id="voiceControl"
-        label="Voice Control"
-        checked={voiceControl}
-        onChange={handleChange}
+      <VoiceControl
+        voiceControl={voiceControl}
+        handleChange={handleChange}
+        text={text}
+        setText={setText}
+        isSpeaking={isSpeaking}
+        isPaused={isPaused}
+        isResumed={isResumed}
+        hasEnded={hasEnded}
+        speak={speak}
+        pause={pause}
+        resume={resume}
+        cancel={cancel}
       />
     </div>
   );

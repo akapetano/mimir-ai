@@ -8,7 +8,20 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: { gold: "#FFD700" },
+      colors: {
+        gold: "#ffd32a",
+        gray: {
+          dark: "#485460",
+          DEFAULT: "#808e9b",
+          light: "#d2dae2",
+        },
+        black: "#1e272e",
+        blue: {
+          DEFAULT: "#00d8d6",
+          light: "#34e7e4",
+        },
+        white: "#ecf0f1",
+      },
       keyframes: {
         leftToRight: {
           from: { transform: "translate(0)" },
