@@ -19,7 +19,7 @@ export const Options = ({
   handleChange,
 }: IOptionsProps) => {
   return (
-    <div className="min-h-full hidden flex-col gap-2.5 p-2.5 md:flex">
+    <div className="min-h-full hidden flex-col gap-2.5 md:flex">
       {modelOptions && modelOptions?.length ? (
         <Select
           label="Current Model"
