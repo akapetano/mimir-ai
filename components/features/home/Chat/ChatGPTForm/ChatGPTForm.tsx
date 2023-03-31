@@ -5,12 +5,17 @@ import { SendIcon } from "@/components/atoms/icons/SendIcon/SendIcon";
 import { useChat } from "@/hooks/useChat";
 import { LoadingChatLine } from "../ChatLine/LoadingChatLine/LoadingChatLine";
 import { ChatLine } from "../ChatLine/ChatLine";
+import { Controls } from "../Controls/Controls";
+import { useSpeechSynthesisAi } from "@/hooks/useSpeechSynthesisApi";
+import { useEffect } from "react";
+import clsx from "clsx";
 
 interface IChatGPTFormProps {
   currentModel: string;
+  voiceControl: boolean;
 }
 
-export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
+export function ChatGPTForm({ currentModel, voiceControl }: IChatGPTFormProps) {
   const {
     inputValue,
     handleReset,
@@ -21,10 +26,50 @@ export function ChatGPTForm({ currentModel }: IChatGPTFormProps) {
     messages,
   } = useChat({ currentModel });
 
+  const {
+    text,
+    setText,
+    isSpeaking,
+    isPaused,
+    isResumed,
+    hasEnded,
+    speak,
+    pause,
+    resume,
+    cancel,
+  } = useSpeechSynthesisAi();
+
+  useEffect(() => {
+    if (messages && Array.isArray(messages)) {
+      messages[messages.length - 1].role === "assistant"
+        ? setText(messages[messages.length - 1].content)
+        : null;
+    }
+  }, [messages, setText]);
+
   return (
-    <div className="flex flex-col justify-between w-full p-5 gap-20">
+    <div className="flex flex-col justify-between items-center w-full p-5 gap-20">
       <div className="w-full self-center md:max-w-[900px] flex flex-col gap-10">
-        <div className="mt-5 flex flex-col md:flex-row justify-end gap-5">
+        <div
+          className={clsx(
+            "mt-5 flex flex-col md:flex-row gap-5",
+            voiceControl ? "justify-between" : "justify-end"
+          )}
+        >
+          {voiceControl ? (
+            <Controls
+              text={text}
+              setText={setText}
+              isSpeaking={isSpeaking}
+              isPaused={isPaused}
+              isResumed={isResumed}
+              hasEnded={hasEnded}
+              speak={speak}
+              pause={pause}
+              resume={resume}
+              cancel={cancel}
+            />
+          ) : null}
           <Button
             label="Clear History"
             type="reset"
