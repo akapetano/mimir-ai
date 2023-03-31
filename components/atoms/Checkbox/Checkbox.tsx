@@ -25,11 +25,11 @@ export const Checkbox = ({
   onChange,
 }: ICheckboxProps) => {
   const classes = classNames(
-    "flex justify-start gap-2.5 items-center text-sm tracking-normal normal-case p-4 hover:cursor-pointer",
+    "flex justify-start gap-2.5 items-center text-sm tracking-normal normal-case hover:cursor-pointer",
     disabled ? "opacity-50" : "opacity-100",
     bare
       ? "border-none pl-0 mb-1"
-      : "bg-gray-dark rounded-md focus:border-blue mb-4",
+      : "bg-gray-dark rounded-md focus:border-blue mb-4 p-4",
     className
   );
 

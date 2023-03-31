@@ -33,25 +33,28 @@ export const Controls = ({
       <Button
         label=""
         iconOnly
-        icon={<PlayIcon width="28" height="28" />}
-        variant="primary"
+        icon={<PlayIcon width="24" height="24" />}
+        variant="secondary"
         onClick={() => (!isPaused ? speak() : resume())}
+        className="!p-2"
       />
       <Button
         label=""
         iconOnly
-        icon={<StopIcon width="28" height="28" />}
+        icon={<StopIcon width="24" height="24" />}
         disabled={!isSpeaking || hasEnded}
-        variant="primary"
+        variant="secondary"
         onClick={() => cancel()}
+        className="!p-2"
       />
       <Button
         label=""
         iconOnly
-        icon={<PauseIcon width="28" height="28" />}
+        icon={<PauseIcon width="24" height="24" />}
         disabled={(!isSpeaking && !isPaused) || hasEnded}
-        variant="primary"
+        variant="secondary"
         onClick={() => (isPaused ? resume() : pause())}
+        className="!p-2"
       />
     </div>
   );

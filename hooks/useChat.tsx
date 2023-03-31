@@ -3,10 +3,6 @@ import useSwr from "swr";
 import { ChatGPTMessage } from "@/types";
 import { useCookies } from "react-cookie";
 
-interface IUseChatProps {
-  currentModel: string;
-}
-
 const COOKIE_NAME = "nextjs-example-ai-chat-gpt3";
 
 export const initialMessages: ChatGPTMessage[] = [
@@ -17,7 +13,7 @@ export const initialMessages: ChatGPTMessage[] = [
   },
 ];
 
-export const useChat = ({ currentModel }: IUseChatProps) => {
+export const useChat = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [messages, setMessages] = useState<ChatGPTMessage[]>(initialMessages);
   const [response, setResponse] = useState<string[]>([]);
