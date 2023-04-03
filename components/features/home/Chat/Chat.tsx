@@ -18,6 +18,7 @@ export const Chat = () => {
     isLoading,
     handleInputChange,
     messages,
+    ToastContainer,
   } = useChat();
   const {
     text,
@@ -65,6 +66,7 @@ export const Chat = () => {
         setText={setText}
         className="md:w-2/3"
       />
+      <ToastContainer />
     </div>
   );
 };

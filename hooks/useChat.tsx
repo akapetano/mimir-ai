@@ -2,6 +2,7 @@ import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import useSwr from "swr";
 import { ChatGPTMessage } from "@/types";
 import { useCookies } from "react-cookie";
+import { useToast } from "./useToast";
 
 const COOKIE_NAME = "nextjs-example-ai-chat-gpt3";
 
@@ -19,6 +20,7 @@ export const useChat = () => {
   const [response, setResponse] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cookie, setCookie] = useCookies([COOKIE_NAME]);
+  const { addToast, ToastContainer } = useToast();
 
   useEffect(() => {
     if (!cookie[COOKIE_NAME]) {
@@ -90,6 +92,13 @@ export const useChat = () => {
       }
     } catch (error) {
       console.error(error);
+      if (error instanceof Error) {
+        if (error.message === "Internal Server Error") {
+          addToast("Error!", "Failed to fetch OpenAI stream", "error");
+        } else {
+          addToast("Error!", error.message, "error");
+        }
+      }
       setIsLoading(false);
     }
   };
@@ -127,5 +136,6 @@ export const useChat = () => {
     handleInputChange,
     response,
     messages,
+    ToastContainer,
   };
 };
