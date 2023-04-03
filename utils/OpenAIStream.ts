@@ -4,7 +4,16 @@ import {
   ReconnectInterval,
 } from "eventsource-parser";
 import { OpenAIStreamPayload } from "@/types";
-import { OPENAI_API_KEY, OPENAI_API_ORG } from "@/constants";
+import {
+  OPENAI_API_KEY,
+  OPENAI_API_ORG,
+  OPENAI_API_ENDPOINT,
+} from "@/constants";
+import pLimit from "p-limit";
+
+const limit = pLimit(1);
+
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function OpenAIStream(payload: OpenAIStreamPayload) {
   const encoder = new TextEncoder();
@@ -21,11 +30,19 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
     requestHeaders["OpenAI-Organization"] = OPENAI_API_ORG;
   }
 
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    headers: requestHeaders,
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
+  const response = await limit(() =>
+    fetch(OPENAI_API_ENDPOINT, {
+      headers: requestHeaders,
+      method: "POST",
+      body: JSON.stringify(payload),
+    })
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch OpenAI stream: ${response.status} ${response.statusText}`
+    );
+  }
 
   const stream = new ReadableStream({
     async start(controller) {
@@ -52,8 +69,13 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
       }
 
       const parser = createParser(onParse);
-      for await (const chunk of response.body as any) {
-        parser.feed(decoder.decode(chunk));
+      try {
+        for await (const chunk of response.body as any) {
+          parser.feed(decoder.decode(chunk));
+          await delay(500);
+        }
+      } catch (error) {
+        controller.error(error);
       }
     },
   });

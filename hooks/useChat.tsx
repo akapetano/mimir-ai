@@ -45,45 +45,51 @@ export const useChat = () => {
     setMessages(newMessages);
     const lastTenMessages = newMessages.slice(-10);
 
-    const response = await fetch("/api/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        messages: lastTenMessages,
-        user: cookie[COOKIE_NAME],
-      }),
-    });
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          messages: lastTenMessages,
+          user: cookie[COOKIE_NAME],
+        }),
+      });
 
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
 
-    const data = response.body;
-    setInputValue("");
-    if (!data) {
-      return;
-    }
+      const data = response.body;
+      console.log({ response });
+      setInputValue("");
+      if (!data) {
+        return;
+      }
 
-    const reader = data.getReader();
-    const decoder = new TextDecoder();
-    let done = false;
+      const reader = data.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
 
-    let lastMessage = "";
+      let lastMessage = "";
 
-    while (!done) {
-      const { value, done: doneReading } = await reader.read();
-      done = doneReading;
-      const chunkValue = decoder.decode(value);
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        const chunkValue = decoder.decode(value);
 
-      lastMessage = lastMessage + chunkValue;
+        lastMessage = lastMessage + chunkValue;
 
-      setMessages([
-        ...newMessages,
-        { role: "assistant", content: lastMessage } as ChatGPTMessage,
-      ]);
+        setMessages([
+          ...newMessages,
+          { role: "assistant", content: lastMessage } as ChatGPTMessage,
+        ]);
 
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
       setIsLoading(false);
     }
   };
@@ -99,9 +105,14 @@ export const useChat = () => {
   };
 
   useSwr("fetchingResponse", async () => {
-    const storedResponse = localStorage.getItem("response");
-    if (storedResponse) {
-      setResponse(JSON.parse(storedResponse));
+    try {
+      const storedResponse = localStorage.getItem("response");
+      if (storedResponse) {
+        setResponse(JSON.parse(storedResponse));
+      }
+    } catch (error) {
+      console.error(error);
+      setResponse([]);
     }
   });
 
