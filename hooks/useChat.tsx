@@ -95,6 +95,8 @@ export const useChat = () => {
       if (error instanceof Error) {
         if (error.message === "Internal Server Error") {
           addToast("Error!", "Failed to fetch OpenAI stream", "error");
+        } else if (!error.message) {
+          addToast("Error!", "Something went wrong!", "error");
         } else {
           addToast("Error!", error.message, "error");
         }
