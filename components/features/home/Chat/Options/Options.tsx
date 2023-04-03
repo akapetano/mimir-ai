@@ -36,7 +36,7 @@ export const Options = ({
   return (
     <div className={`w-full min-h-full flex flex-col gap-2.5 ${className}`}>
       <div className="w-full flex justify-between items-center">
-        <span className="block text-lg">History</span>
+        <span className="block text-lg text-white">History</span>
         <Button
           label=""
           iconOnly

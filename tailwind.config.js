@@ -9,6 +9,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        error: "#ee5253",
+        warning: "#feca57",
+        success: "#10ac84",
         gold: "#ffd32a",
         gray: {
           dark: "#485460",
