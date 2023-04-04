@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie";
 import { useToast } from "./useToast";
 import { apiKeyAtom } from "@/atoms";
 import { useAtom } from "jotai";
+import { ELI5 } from "@/constants";
 
 const COOKIE_NAME = "nextjs-example-ai-chat-gpt3";
 
@@ -21,6 +22,7 @@ export const useChat = () => {
   const [messages, setMessages] = useState<ChatGPTMessage[]>(initialMessages);
   const [response, setResponse] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [eliFive, setEliFive] = useState<boolean>(false);
   const [cookie, setCookie] = useCookies([COOKIE_NAME]);
   const { addToast, ToastContainer } = useToast();
   const [apiKey, setApiKey] = useAtom(apiKeyAtom);
@@ -47,9 +49,11 @@ export const useChat = () => {
 
     setIsLoading(true);
 
+    const newMessage = eliFive ? inputValue + " " + ELI5 : inputValue;
+
     const newMessages = [
       ...messages,
-      { role: "user", content: inputValue } as ChatGPTMessage,
+      { role: "user", content: newMessage } as ChatGPTMessage,
     ];
     setMessages(newMessages);
     const lastTenMessages = newMessages.slice(-10);
@@ -152,5 +156,7 @@ export const useChat = () => {
     ToastContainer,
     apiKey,
     handleApiKeyChange,
+    eliFive,
+    setEliFive,
   };
 };

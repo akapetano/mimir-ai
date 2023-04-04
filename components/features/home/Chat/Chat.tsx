@@ -4,9 +4,9 @@ import { useModels } from "@/hooks/useModels";
 import { useVoice } from "@/hooks/useVoice";
 import { useChat } from "@/hooks/useChat";
 import { useSpeechSynthesisApi } from "@/hooks/useSpeechSynthesisApi";
+import { Input } from "@/components/atoms/Input/Input";
 import { Options } from "@/components/features/home/Chat/Options/Options";
 import { ChatSection } from "./ChatSection/ChatSection";
-import { MimirIcon } from "@/components/atoms/icons/MimirIcon/MimirIcon";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -24,6 +24,8 @@ export const Chat = () => {
     ToastContainer,
     apiKey,
     handleApiKeyChange,
+    eliFive,
+    setEliFive,
   } = useChat();
   const {
     text,
@@ -54,14 +56,13 @@ export const Chat = () => {
             </div>
           </Link>
 
-          <input
+          <Input
             type="text"
             id="question"
             name="question"
             value={apiKey}
             onChange={handleApiKeyChange}
             placeholder="Add Your API Key"
-            className={`w-full md:w-auto p-5 bg-white placeholder-gray text-black focus:bg-gray-light rounded-md outline-blue pr-14`}
           />
         </nav>
       </header>
@@ -83,6 +84,8 @@ export const Chat = () => {
           pause={pause}
           resume={resume}
           cancel={cancel}
+          eliFive={eliFive}
+          setEliFive={setEliFive}
           className="md:w-1/3"
         />
 
