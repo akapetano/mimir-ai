@@ -43,13 +43,15 @@ export const Chat = () => {
       <header className="p-5">
         <nav className="flex flex-col md:flex-row justify-start md:justify-between md:items-center gap-5">
           <Link href="/" className="flex gap-2.5">
-            <Image
-              src="/images/mimir-ai-runic.png"
-              width={150}
-              height={200}
-              alt=""
-              className="bg-gray-light p-2 rounded-md"
-            />
+            <div className="p-1.5 bg-white border-2 border-black rounded-md">
+              <Image
+                src="/images/mimir-ai-runic.png"
+                width={150}
+                height={200}
+                alt=""
+                className="bg-white border-2 border-black outline-black p-2 rounded-md"
+              />
+            </div>
           </Link>
 
           <input
