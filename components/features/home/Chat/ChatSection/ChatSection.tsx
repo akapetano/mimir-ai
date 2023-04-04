@@ -42,7 +42,7 @@ export function ChatSection({
 
   return (
     <section
-      className={`flex flex-col gap-5 h-[calc(100vh-180px)] md:h-[calc(100vh-40px)] justify-center items-center w-full max-w-5xl ${className}`}
+      className={`flex flex-col gap-5 h-[100dvh] md:h-[calc(100vh-160px)] justify-center items-center w-full max-w-5xl ${className}`}
     >
       <Conversation messages={messages} isLoading={isLoading} />
       <ChatGPTForm

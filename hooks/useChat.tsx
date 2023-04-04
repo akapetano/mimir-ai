@@ -3,6 +3,8 @@ import useSwr from "swr";
 import { ChatGPTMessage } from "@/types";
 import { useCookies } from "react-cookie";
 import { useToast } from "./useToast";
+import { apiKeyAtom } from "@/atoms";
+import { useAtom } from "jotai";
 
 const COOKIE_NAME = "nextjs-example-ai-chat-gpt3";
 
@@ -21,6 +23,7 @@ export const useChat = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cookie, setCookie] = useCookies([COOKIE_NAME]);
   const { addToast, ToastContainer } = useToast();
+  const [apiKey, setApiKey] = useAtom(apiKeyAtom);
 
   useEffect(() => {
     if (!cookie[COOKIE_NAME]) {
@@ -33,6 +36,10 @@ export const useChat = () => {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const eventTarget = event.target;
     setInputValue(eventTarget?.value);
+  };
+
+  const handleApiKeyChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setApiKey(event.target.value);
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -48,6 +55,11 @@ export const useChat = () => {
     const lastTenMessages = newMessages.slice(-10);
 
     try {
+      if (!apiKey) {
+        setIsLoading(false);
+        setMessages(initialMessages);
+        throw new Error("Missing OpenAI API key.");
+      }
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
@@ -56,6 +68,7 @@ export const useChat = () => {
         body: JSON.stringify({
           messages: lastTenMessages,
           user: cookie[COOKIE_NAME],
+          apiKey: apiKey,
         }),
       });
 
@@ -95,8 +108,6 @@ export const useChat = () => {
       if (error instanceof Error) {
         if (error.message === "Internal Server Error") {
           addToast("Error!", "Failed to fetch OpenAI stream", "error");
-        } else if (!error.message) {
-          addToast("Error!", "Something went wrong!", "error");
         } else {
           addToast("Error!", error.message, "error");
         }
@@ -139,5 +150,7 @@ export const useChat = () => {
     response,
     messages,
     ToastContainer,
+    apiKey,
+    handleApiKeyChange,
   };
 };
