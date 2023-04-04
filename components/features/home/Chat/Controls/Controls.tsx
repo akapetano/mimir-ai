@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { Checkbox } from "@/components/atoms/Checkbox/Checkbox";
 import { VoiceControls } from "../VoiceControls/VoiceControls";
 import { Tooltip } from "@/components/atoms/Tooltip/Tooltip";
+import { Select } from "@/components/atoms/Select/Select";
 
 export interface IControlsProps {
   voiceControl: boolean;
@@ -19,6 +20,9 @@ export interface IControlsProps {
   cancel: () => void;
   eliFive: boolean;
   setEliFive: Dispatch<SetStateAction<boolean>>;
+  currentModel: string;
+  setCurrentModel: Dispatch<SetStateAction<string>>;
+  modelOptions: string[];
 }
 
 export const Controls = ({
@@ -36,6 +40,9 @@ export const Controls = ({
   cancel,
   eliFive,
   setEliFive,
+  currentModel,
+  setCurrentModel,
+  modelOptions,
 }: IControlsProps) => {
   return (
     <div
@@ -43,6 +50,17 @@ export const Controls = ({
         "w-full flex flex-col gap-2.5 items-start justify-center bg-gray-dark rounded-md p-2.5"
       )}
     >
+      {modelOptions && modelOptions?.length ? (
+        <Select
+          label="Current Model"
+          name="currentModel"
+          value={currentModel}
+          onChange={setCurrentModel}
+          options={modelOptions}
+          mapOptionToLabel={(model: string) => model}
+          mapOptionToValue={(model: string) => model}
+        />
+      ) : null}
       <div className="w-full flex gap-2.5 items-center justify-between">
         <Checkbox
           id="voiceControl"
