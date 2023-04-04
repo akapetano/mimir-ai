@@ -1,10 +1,12 @@
-import { Button } from "@/components/atoms/Button/Button";
-import { PlayIcon } from "@/components/atoms/icons/PlayIcon/PlayIcon";
-import { StopIcon } from "@/components/atoms/icons/StopIcon/StopIcon";
-import { PauseIcon } from "@/components/atoms/icons/PauseIcon/PauseIcon";
-import { Dispatch, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import clsx from "clsx";
+import { Checkbox } from "@/components/atoms/Checkbox/Checkbox";
+import { VoiceControls } from "../VoiceControls/VoiceControls";
+import { Tooltip } from "@/components/atoms/Tooltip/Tooltip";
 
-interface IControlsProps {
+export interface IControlsProps {
+  voiceControl: boolean;
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
   text: string;
   setText: Dispatch<SetStateAction<string>>;
   isSpeaking: boolean;
@@ -15,47 +17,68 @@ interface IControlsProps {
   pause: () => void;
   resume: () => void;
   cancel: () => void;
-  className?: string;
+  eliFive: boolean;
+  setEliFive: Dispatch<SetStateAction<boolean>>;
 }
 
 export const Controls = ({
+  voiceControl,
+  handleChange,
+  text,
+  setText,
   isSpeaking,
   isPaused,
+  isResumed,
   hasEnded,
   speak,
   pause,
   resume,
   cancel,
-  className,
+  eliFive,
+  setEliFive,
 }: IControlsProps) => {
   return (
-    <div className={`flex justify-center items-center gap-2.5 ${className}`}>
-      <Button
-        label=""
-        iconOnly
-        icon={<PlayIcon width="24" height="24" />}
-        variant="secondary"
-        onClick={() => (!isPaused ? speak() : resume())}
-        className="!p-2"
-      />
-      <Button
-        label=""
-        iconOnly
-        icon={<StopIcon width="24" height="24" />}
-        disabled={!isSpeaking || hasEnded}
-        variant="secondary"
-        onClick={() => cancel()}
-        className="!p-2"
-      />
-      <Button
-        label=""
-        iconOnly
-        icon={<PauseIcon width="24" height="24" />}
-        disabled={(!isSpeaking && !isPaused) || hasEnded}
-        variant="secondary"
-        onClick={() => (isPaused ? resume() : pause())}
-        className="!p-2"
-      />
+    <div
+      className={clsx(
+        "w-full flex flex-col gap-2.5 items-start justify-center bg-gray-dark rounded-md p-2.5"
+      )}
+    >
+      <div className="w-full flex gap-2.5 items-center justify-between">
+        <Checkbox
+          id="voiceControl"
+          label="Voice Control"
+          checked={voiceControl}
+          onChange={handleChange}
+          className="w-full p-2.5"
+          bare
+        />
+        {voiceControl ? (
+          <VoiceControls
+            text={text}
+            setText={setText}
+            isSpeaking={isSpeaking}
+            isPaused={isPaused}
+            isResumed={isResumed}
+            hasEnded={hasEnded}
+            speak={speak}
+            pause={pause}
+            resume={resume}
+            cancel={cancel}
+          />
+        ) : null}
+      </div>
+      <Tooltip text="Explain to me like I'm 5">
+        <Checkbox
+          id="eli5"
+          label="ELI5"
+          checked={eliFive}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => {
+            setEliFive(event.target.checked);
+          }}
+          className="w-full p-2.5"
+          bare
+        />
+      </Tooltip>
     </div>
   );
 };

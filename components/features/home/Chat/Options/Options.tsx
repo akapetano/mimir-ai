@@ -3,14 +3,16 @@ import { Checkbox } from "@/components/atoms/Checkbox/Checkbox";
 import { Select } from "@/components/atoms/Select/Select";
 import { Button } from "@/components/atoms/Button/Button";
 import { TrashIcon } from "@/components/atoms/icons/TrashIcon/TrashIcon";
-import { VoiceControl } from "../VoiceControl/VoiceControl";
-import { IVoiceControlProps } from "../VoiceControl/VoiceControl";
+import { Controls, IControlsProps } from "../Controls/Controls";
+import { Tooltip } from "@/components/atoms/Tooltip/Tooltip";
 
-interface IOptionsProps extends IVoiceControlProps {
+interface IOptionsProps extends IControlsProps {
   currentModel: string;
   setCurrentModel: Dispatch<SetStateAction<string>>;
   modelOptions: string[];
   handleReset: () => void;
+  eliFive: boolean;
+  setEliFive: Dispatch<SetStateAction<boolean>>;
   className?: string;
 }
 
@@ -32,9 +34,11 @@ export const Options = ({
   pause,
   resume,
   cancel,
+  eliFive,
+  setEliFive,
 }: IOptionsProps) => {
   return (
-    <div className={`w-full min-h-full flex flex-col gap-2.5 ${className}`}>
+    <section className={`w-full min-h-full flex flex-col gap-2.5 ${className}`}>
       <div className="w-full flex justify-between items-center">
         <span className="block text-lg text-white">History</span>
         <Button
@@ -58,7 +62,7 @@ export const Options = ({
           mapOptionToValue={(model: string) => model}
         />
       ) : null}
-      <VoiceControl
+      <Controls
         voiceControl={voiceControl}
         handleChange={handleChange}
         text={text}
@@ -71,7 +75,9 @@ export const Options = ({
         pause={pause}
         resume={resume}
         cancel={cancel}
+        eliFive={eliFive}
+        setEliFive={setEliFive}
       />
-    </div>
+    </section>
   );
 };
