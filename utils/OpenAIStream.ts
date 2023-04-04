@@ -4,18 +4,19 @@ import {
   ReconnectInterval,
 } from "eventsource-parser";
 import { OpenAIStreamPayload } from "@/types";
-import {
-  OPENAI_API_KEY,
-  OPENAI_API_ORG,
-  OPENAI_API_ENDPOINT,
-} from "@/constants";
+import { OPENAI_API_ORG, OPENAI_API_ENDPOINT } from "@/constants";
 import pLimit from "p-limit";
 
 const limit = pLimit(1);
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export async function OpenAIStream(payload: OpenAIStreamPayload) {
+export async function OpenAIStream(
+  payload: OpenAIStreamPayload,
+  apiKey: string
+) {
+  const OPENAI_API_KEY = apiKey;
+
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 

@@ -1,10 +1,6 @@
 import { ChatGPTMessage, OpenAIStreamPayload } from "@/types";
 import { OpenAIStream } from "@/utils/OpenAIStream";
-import { OPENAI_API_KEY, AI_MAX_TOKENS, AI_TEMP } from "@/constants";
-
-if (!OPENAI_API_KEY) {
-  throw new Error("Missing env var from OpenAI");
-}
+import { AI_MAX_TOKENS, AI_TEMP } from "@/constants";
 
 export const config = { runtime: "edge" };
 
@@ -43,6 +39,6 @@ export default async function handler(request: Request): Promise<Response> {
     n: 1,
   };
 
-  const stream = await OpenAIStream(payload);
+  const stream = await OpenAIStream(payload, body?.apiKey);
   return new Response(stream);
 }

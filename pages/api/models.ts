@@ -1,9 +1,8 @@
 import { Configuration, OpenAIApi } from "openai";
-import { OPENAI_API_KEY } from "@/constants";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const configuration = new Configuration({
-  apiKey: OPENAI_API_KEY,
+  // apiKey: OPENAI_API_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
