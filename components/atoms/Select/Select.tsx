@@ -3,13 +3,16 @@ import { ChangeEvent } from "react";
 type OptionValue = string | number;
 
 type SelectBaseProps<Value> = {
-  label: string;
+  label?: string;
   value: Value;
   name: string;
   onChange: (newValue: Value) => void;
   options: readonly Value[];
   mapOptionToLabel?: (option: Value) => OptionValue;
   mapOptionToValue?: (option: Value) => OptionValue;
+  placeholder?: string;
+  className?: string;
+  disabled?: boolean;
 };
 
 type SelectProps<Value> = Value extends OptionValue
@@ -27,6 +30,9 @@ export function Select<Value>({
   options,
   mapOptionToValue,
   mapOptionToLabel,
+  placeholder,
+  className,
+  disabled = false,
 }: SelectProps<Value>) {
   console.log({ value });
 
@@ -54,10 +60,16 @@ export function Select<Value>({
       <select
         id={name}
         name={name}
-        className="w-full md:w-72 py-2 px-2 border-r-8 border-transparent rounded-md bg-white text-gray-dark outline-offset-2 outline-blue"
+        className={`w-full md:w-72 py-2 px-2 border-r-8 border-transparent rounded-md bg-white text-gray-dark outline-offset-2 outline-blue ${className}`}
         value={toValue(value)}
         onChange={handleChange}
+        disabled={disabled}
       >
+        {placeholder && (
+          <option value="" disabled hidden>
+            {placeholder}
+          </option>
+        )}
         {options?.map((value) => (
           <option value={toValue(value)} key={toValue(value)}>
             {toLabel(value)}

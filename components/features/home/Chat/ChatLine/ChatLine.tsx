@@ -24,7 +24,7 @@ export function ChatLine({ role = "assistant", content }: ChatGPTMessage) {
         <div className="flex w-full">
           <div
             className={clsx(
-              "w-full flex gap-2.5 justify-end items-center",
+              "w-full flex items-center justify-end gap-2.5",
               isAI ? "flex-row" : "flex-row-reverse"
             )}
           >
@@ -33,8 +33,8 @@ export function ChatLine({ role = "assistant", content }: ChatGPTMessage) {
             </span>
             <p
               className={clsx(
-                "",
-                isAI ? " pr-2.5 text-black" : "pl-2.5 text-black"
+                "flex-shrink-0",
+                isAI ? "pl-2 text-black" : "pr-2 text-black"
               )}
             >
               <BalancerWrapper>{formattedMessage}</BalancerWrapper>
