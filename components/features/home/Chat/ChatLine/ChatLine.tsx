@@ -32,10 +32,7 @@ export function ChatLine({ role = "assistant", content }: ChatGPTMessage) {
               {isAI ? <MimirIcon /> : <UserIcon />}
             </span>
             <p
-              className={clsx(
-                "flex-shrink-0",
-                isAI ? "pl-2 text-black" : "pr-2 text-black"
-              )}
+              className={clsx("", isAI ? "pl-2 text-black" : "pr-2 text-black")}
             >
               <BalancerWrapper>{formattedMessage}</BalancerWrapper>
             </p>
