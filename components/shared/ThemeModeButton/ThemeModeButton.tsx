@@ -1,6 +1,6 @@
-import { Button } from "../Button/Button";
-import { SunIcon } from "../icons/SunIcon/SunIcon";
-import { MoonIcon } from "../icons/MoonIcon/MoonIcon";
+import { Button } from "../../atoms/Button/Button";
+import { SunIcon } from "../../atoms/icons/SunIcon/SunIcon";
+import { MoonIcon } from "../../atoms/icons/MoonIcon/MoonIcon";
 
 export const ThemeModeButton = () => {
   const isDark = false;
